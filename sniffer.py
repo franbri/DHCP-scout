@@ -48,9 +48,11 @@ if __name__ == '__main__':
     while True:
         packet = sniff(count=1, iface=args.interface,
                        lfilter=lambda d: d.src != interface_hwaddr)[0]
-
-        source_mac = packet.getlayer(layers.l2.Ether).src
-        dest_mac = packet.getlayer(layers.l2.Ether).dst
+        try:
+            source_mac = packet.getlayer(layers.l2.Ether).src
+            dest_mac = packet.getlayer(layers.l2.Ether).dst
+        except:
+            continue
 
         ip_layer = packet.getlayer(layers.inet.IP)
 
