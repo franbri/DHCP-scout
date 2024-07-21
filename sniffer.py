@@ -1,5 +1,6 @@
 import os
 import argparse
+import fileMan
 
 from scapy.all import sniff, conf, get_if_hwaddr, get_if_list, get_if_addr
 
@@ -27,6 +28,8 @@ if __name__ == '__main__':
     interface_hwaddr = get_if_hwaddr(interface)
 
     known_hosts = {}
+
+    count = 0
 
     if args.show_interfaces:
         print('{:20} {:20} {:20}'.format('NAME', 'MAC', 'IP'))
@@ -68,6 +71,12 @@ if __name__ == '__main__':
         # more unique identifier
         host = known_hosts.setdefault(host.mac + host.ip, host)
         host.increase_packet_num()
+
+        if count > 1000:
+            fileMan.saveState(known_hosts)
+            count = 0
+        else:
+            count = count + 1
 
         dhcp_layer = packet.getlayer(layers.dhcp.DHCP)
 
