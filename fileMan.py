@@ -4,8 +4,9 @@ from pathlib import Path
 if os.name == 'nt':
     tmpDir = '.\\'
 elif os.name == 'posix':
-    tmpDir = os.environ['TMPDIR']
-    if len(tmpDir) < 1:
+    try:
+        tmpDir = os.environ['TMPDIR']
+    except:
         try:
             Path('/dev/shm/test').touch()
             tmpDir = '/dev/shm/'
