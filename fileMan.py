@@ -14,8 +14,8 @@ elif os.name == 'posix':
             tmpDir = '/tmp/'
 
 def saveState(known_hosts):
-    stateFile = open(tmpDir + 'DHCP-scout.pickle', 'ab')
-    pickle.dump(known_hosts, stateFile)
+    stateFile = open(tmpDir + 'DHCP-scout.pickle', 'wb')
+    pickle.dump(known_hosts, stateFile,)
     stateFile.close()
 
 def loadState():
