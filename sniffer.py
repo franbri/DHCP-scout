@@ -73,13 +73,12 @@ if __name__ == '__main__':
     sniffer = AsyncSniffer( iface=args.interface,
                     filter="(port 67 or 68) or (net 192.168.1.0/24)",
                     prn=packetHandler)
+    sniffer.start()
     while True:
         '''sniff(count=1000, iface=args.interface,
                        filter="net 192.168.1.0/24 or (port 67 or 68)",
                        lfilter=lambda d: d.src != interface_hwaddr,
                        prn=packetHandler)
                        '''
-        sniffer.start()
         time.sleep(10)
-        sniffer.stop()
         fileMan.saveState(known_hosts)
