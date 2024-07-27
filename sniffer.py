@@ -69,8 +69,7 @@ if __name__ == '__main__':
         known_hosts = {}
 
     sniffer = AsyncSniffer( iface=args.interface,
-                    filter="net 192.168.1.0/24 or (port 67 or 68)",
-                    lfilter=lambda d: d.src != interface_hwaddr,
+                    filter="(port 67 or 68) or (net 192.168.1.0/24)",
                     prn=packetHandler)
     while True:
         '''sniff(count=1000, iface=args.interface,

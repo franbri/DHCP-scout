@@ -1,14 +1,21 @@
 from scapy.all import *
+import datetime
+
 
 PACKETS_WITHOUT_DHCP = 5
+LEASE_TIME = 28800
 
 class Host:
     def __init__(self, mac: str):
         self._mac = mac
+        self._hostname = None
+
         self._ip = None
         self._broadcasted_dhcp = False
         self._num_packets = 0
         self._seen = False
+        self._dhcp_lease_start = None
+        self._dhcp_lease_end = None
 
     def increase_packet_num(self) -> None:
         self._num_packets += 1
@@ -17,7 +24,12 @@ class Host:
         self._seen = True
 
     def set_dhcp_seen(self) -> None:
+        self._dhcp_lease_start = datetime.datetime.now()
+        self._dhcp_lease_end = self._dhcp_lease_start + datetime.timedelta(0, LEASE_TIME)
         self._broadcasted_dhcp = True
+    
+    def set_set_hostname(self, hostname) -> None:
+        self._hostname = hostname
 
     @property
     def mac(self) -> str:
@@ -45,6 +57,17 @@ class Host:
     def __repr__(self):
         return '{} @ {} | DHCP seen: {}'.format(self.mac, self.ip,
                                               self.broadcasted_dhcp)
+    
+    def to_lease(self):
+        start_date = self._dhcp_lease_start.strftime("%w %Y/%m/%d %H:%M:%S")
+        end_date = self._dhcp_lease_end.strftime("%w %Y/%m/%d %H:%M:%S")
+        if self._hostname:
+            return 'lease {} {{\n\tstarts {};\n\tends {};\n\thardware ethernet {};\n\tclient-hostname "{}";\n\tbinding state {};\n\t}}'.format(self._ip, start_date,
+                                                                                                                                           end_date, self._hostname,
+                                                                                                                                             "free")
+        else:
+            return 'lease {} {{\n\tstarts {};\n\tends {};\n\thardware ethernet {};\n\tbinding state {};\n\t}}'.format(self._ip, start_date,
+                                                                                                                      end_date, "free")
 
 
 # Fixup function to extract dhcp_options by key

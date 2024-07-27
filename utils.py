@@ -3,6 +3,7 @@ import socket
 import time
 import struct
 import os
+import datetime
 
 if os.name != 'nt':
     import fcntl
@@ -34,7 +35,8 @@ def convert_hex_str_to_mac(hexstr):
 
 
 def get_time():
-    return time.strftime("%Y-%m-%d %H:%M:%S %z", time.localtime())
+    return datetime.datetime.now()
+    #return time.strftime("%Y-%m-%d %H:%M:%S %z", time.localtime())
 
 
 def get_netmask(ifname: bytes) -> bytes:
