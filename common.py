@@ -55,7 +55,7 @@ class Host:
         return self._seen
 
     def __repr__(self):
-        return '{} @ {} | DHCP seen: {}'.format(self.mac, self.ip,
+        return '{} @ {} | hostname: {} | DHCP seen: {}'.format(self.mac, self.ip, self._hostname,
                                               self.broadcasted_dhcp)
     
     def to_lease(self):
