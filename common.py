@@ -24,7 +24,7 @@ class Host:
         self._seen = True
 
     def set_dhcp_seen(self) -> None:
-        if (self._dhcp_lease_end != None) and (self._dhcp_lease_end < datetime.datetime.now()):
+        if (self._dhcp_lease_end < datetime.datetime.now()):
             self._dhcp_lease_start = datetime.datetime.now()
             self._dhcp_lease_end = self._dhcp_lease_start + datetime.timedelta(0, LEASE_TIME)
         self._broadcasted_dhcp = True
