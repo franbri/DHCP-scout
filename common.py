@@ -67,11 +67,11 @@ class Host:
         end_date = self._dhcp_lease_end.strftime("%w %Y/%m/%d %H:%M:%S")
         if self._hostname != None:
             return 'lease {} {{\n\tstarts {};\n\tends {};\n\thardware ethernet {};\n\tclient-hostname "{}";\n\tbinding state {};\n\t}}\n'.format(self._ip, start_date,
-                                                                                                                                           end_date, self._hostname,
-                                                                                                                                             "free")
+                                                                                                                                            end_date, self.mac,
+                                                                                                                                            self._hostname, "free")
         else:
             return 'lease {} {{\n\tstarts {};\n\tends {};\n\thardware ethernet {};\n\tbinding state {};\n\t}}'.format(self._ip, start_date,
-                                                                                                                      end_date, "free")
+                                                                                                                      end_date, self.mac, "free")
 
 
 # Fixup function to extract dhcp_options by key
