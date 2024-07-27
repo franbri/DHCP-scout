@@ -12,7 +12,7 @@ elif os.name == 'posix':
 
 from scapy import layers
 
-from common import Host, PACKETS_WITHOUT_DHCP, get_requested_address
+from common import Host, PACKETS_WITHOUT_DHCP, get_requested_address, get_hostname
 from utils import get_time, check_port_open
 
 
@@ -43,11 +43,13 @@ def packetHandler(packet):
     if dhcp_layer:
         try:
             requested_address = get_requested_address(dhcp_layer)
+            hostname = get_hostname(dhcp_layer)
         except ValueError:
             print('Caught non-DCHPREQUEST packet')
             return
 
         host.set_ip(requested_address)
+        host.set_hostname(hostname)
         host.set_dhcp_seen()
 
     #now = get_time()

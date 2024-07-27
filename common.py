@@ -28,7 +28,7 @@ class Host:
         self._dhcp_lease_end = self._dhcp_lease_start + datetime.timedelta(0, LEASE_TIME)
         self._broadcasted_dhcp = True
     
-    def set_set_hostname(self, hostname) -> None:
+    def set_hostname(self, hostname) -> None:
         self._hostname = hostname
 
     @property
@@ -61,7 +61,7 @@ class Host:
     def to_lease(self):
         start_date = self._dhcp_lease_start.strftime("%w %Y/%m/%d %H:%M:%S")
         end_date = self._dhcp_lease_end.strftime("%w %Y/%m/%d %H:%M:%S")
-        if self._hostname:
+        if self._hostname != None:
             return 'lease {} {{\n\tstarts {};\n\tends {};\n\thardware ethernet {};\n\tclient-hostname "{}";\n\tbinding state {};\n\t}}'.format(self._ip, start_date,
                                                                                                                                            end_date, self._hostname,
                                                                                                                                              "free")
@@ -95,4 +95,11 @@ def get_requested_address(packet):
         raise ValueError('Packet {} is not DHCPREQUEST'.format(packet))
 
     requested_address = get_option(packet.options, 'requested_addr')
+    return requested_address
+
+def get_hostname(packet):
+    if packet.options[0][1] != 3:
+        raise ValueError('Packet {} is not DHCPREQUEST'.format(packet))
+
+    requested_address = get_option(packet.options, 'hostname')
     return requested_address
