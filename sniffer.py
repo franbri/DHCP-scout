@@ -86,5 +86,5 @@ if __name__ == '__main__':
         dhcpFile = open('dhcp.leases', 'wb')
 
         for entry in temp_dict:
-            if entry.broadcasted_dhcp:
+            if entry.broadcasted_dhcp == True:
                 dhcpFile.write(entry.to_lease())
