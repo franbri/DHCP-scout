@@ -80,5 +80,11 @@ if __name__ == '__main__':
                        lfilter=lambda d: d.src != interface_hwaddr,
                        prn=packetHandler)
                        '''
-        time.sleep(10)
-        fileMan.saveState(known_hosts)
+        temp_dict = known_hosts.copy()
+        time.sleep(30)
+        fileMan.saveState(temp_dict)
+        dhcpFile = open('dhcp.leases', 'wb')
+
+        for entry in temp_dict:
+            if entry.broadcasted_dhcp:
+                dhcpFile.write(entry.to_lease())
