@@ -83,7 +83,7 @@ if __name__ == '__main__':
         temp_dict = known_hosts.copy()
         time.sleep(30)
         fileMan.saveState(temp_dict)
-        dhcpFile = open('dhcp.leases', 'wb')
+        dhcpFile = open('dhcp.leases', 'w')
 
         for entry in temp_dict.values():
             if entry.broadcasted_dhcp == True:
