@@ -43,7 +43,7 @@ class Host:
         return self._seen
 
     def __repr__(self):
-        return '{} @ {} | DHCP seen: '.format(self.mac, self.ip,
+        return '{} @ {} | DHCP seen: {}'.format(self.mac, self.ip,
                                               self.broadcasted_dhcp)
 
 
