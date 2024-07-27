@@ -81,6 +81,7 @@ if __name__ == '__main__':
                        prn=packetHandler)
                        '''
         time.sleep(300)
+        print("starting writing dhcp.leases ...")
         temp_dict = known_hosts.copy()
         fileMan.saveState(temp_dict)
         dhcpFile = open('dhcp.leases', 'w')
@@ -88,3 +89,4 @@ if __name__ == '__main__':
         for entry in temp_dict.values():
             if entry.broadcasted_dhcp == True:
                 dhcpFile.write(entry.to_lease())
+        print("writing dhcp.leases complete")
