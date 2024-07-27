@@ -80,8 +80,8 @@ if __name__ == '__main__':
                        lfilter=lambda d: d.src != interface_hwaddr,
                        prn=packetHandler)
                        '''
+        time.sleep(300)
         temp_dict = known_hosts.copy()
-        time.sleep(30)
         fileMan.saveState(temp_dict)
         dhcpFile = open('dhcp.leases', 'w')
 
