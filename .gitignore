@@ -3,3 +3,4 @@ python
 .mypy_cache/
 .idea/
 __pycache__/
+*.pcap

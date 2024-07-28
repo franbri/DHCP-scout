@@ -81,11 +81,13 @@ if __name__ == '__main__':
                        lfilter=lambda d: d.src != interface_hwaddr,
                        prn=packetHandler)
                        '''
+        time.sleep(300)
+        print("starting writing dhcp.leases ...")
         temp_dict = known_hosts.copy()
-        time.sleep(30)
         fileMan.saveState(temp_dict)
         dhcpFile = open('dhcp.leases', 'w')
 
         for entry in temp_dict.values():
             if entry.broadcasted_dhcp == True:
                 dhcpFile.write(entry.to_lease())
+        print("writing dhcp.leases complete")
