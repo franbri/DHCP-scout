@@ -72,8 +72,9 @@ if __name__ == '__main__':
 
     sniffer = AsyncSniffer( iface=args.interface,
                     filter="(port 67 or 68) or (net 192.168.1.0/24)",
-                    prn=packetHandler)
+                    prn=packetHandler, store=0)
     sniffer.start()
+
     while True:
         '''sniff(count=1000, iface=args.interface,
                        filter="net 192.168.1.0/24 or (port 67 or 68)",
