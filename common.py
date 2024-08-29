@@ -70,7 +70,7 @@ class Host:
                                                                                                                                             end_date, self.mac,
                                                                                                                                             self._hostname, "free")
         else:
-            return 'lease {} {{\n\tstarts {};\n\tends {};\n\thardware ethernet {};\n\tbinding state {};\n}}'.format(self._ip, start_date,
+            return 'lease {} {{\n\tstarts {};\n\tends {};\n\thardware ethernet {};\n\tbinding state {};\n}}\n'.format(self._ip, start_date,
                                                                                                                       end_date, self.mac, "free")
 
 
